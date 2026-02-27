@@ -1,12 +1,22 @@
 </main>
 
-<footer class="container-xl pb-4">
-    <div class="footer-card">
-        <div>
-            <strong>LM-Code SimpleSchedule</strong>
-            <div class="small text-body-secondary">Architecture clean, backend séparé, migrations MySQL versionnées.</div>
+<footer class="site-footer mt-5">
+    <div class="container-xl">
+        <div class="site-footer-top">
+            <div>
+                <div class="site-footer-title">LM-Code SimpleSchedule</div>
+                <p class="site-footer-text mb-0">Application de planification professionnelle développée par LM-Code.</p>
+            </div>
+            <nav class="site-footer-links" aria-label="Liens LM-Code">
+                <a href="https://lm-code.be" target="_blank" rel="noopener noreferrer">lm-code.be</a>
+                <a href="https://lm-code.be/#services" target="_blank" rel="noopener noreferrer">Services</a>
+                <a href="https://lm-code.be/#contact" target="_blank" rel="noopener noreferrer">Contact</a>
+            </nav>
         </div>
-        <div class="small text-body-secondary">Déploiement local WampServer et Docker</div>
+        <div class="site-footer-bottom">
+            <span>© <?= date('Y') ?> LM-Code (lm-code.be). Tous droits réservés.</span>
+            <span>Compatible WampServer et Docker.</span>
+        </div>
     </div>
 </footer>
 

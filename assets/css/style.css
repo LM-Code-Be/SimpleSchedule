@@ -205,8 +205,7 @@ body {
     line-height: 1.1;
 }
 
-.panel-card,
-.footer-card {
+.panel-card {
     background: rgba(255, 255, 255, 0.93);
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
@@ -214,8 +213,7 @@ body {
     padding: 1rem 1.1rem;
 }
 
-.panel-header,
-.footer-card {
+.panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -223,9 +221,65 @@ body {
     margin-bottom: 0.95rem;
 }
 
-.footer-card {
-    margin-top: 1.3rem;
-    margin-bottom: 0;
+.site-footer {
+    background: linear-gradient(120deg, #0b1228 0%, #172554 55%, #1d4ed8 100%);
+    color: rgba(248, 250, 252, 0.94);
+    border-top: 1px solid rgba(191, 219, 254, 0.2);
+    box-shadow: 0 -8px 26px rgba(2, 6, 23, 0.18);
+}
+
+.site-footer .container-xl {
+    padding-top: 1.15rem;
+    padding-bottom: 1rem;
+}
+
+.site-footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(191, 219, 254, 0.22);
+}
+
+.site-footer-title {
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.site-footer-text {
+    font-size: 0.9rem;
+    color: rgba(226, 232, 240, 0.86);
+}
+
+.site-footer-links {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.site-footer-links a {
+    color: #dbeafe;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.site-footer-links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.site-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+    font-size: 0.82rem;
+    color: rgba(226, 232, 240, 0.78);
 }
 
 .stack-list {
@@ -400,7 +454,12 @@ body {
     }
 
     .panel-card,
-    .footer-card {
+    .site-footer .container-xl {
+        padding-top: 1rem;
+        padding-bottom: 0.9rem;
+    }
+
+    .panel-card {
         border-radius: var(--radius-lg);
     }
 
@@ -453,8 +512,18 @@ body {
     }
 
     .panel-card,
-    .footer-card {
+    .panel-card {
         padding: 0.95rem;
+    }
+
+    .site-footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .site-footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .chart-wrap {
