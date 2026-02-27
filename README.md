@@ -1,6 +1,7 @@
 ﻿# LM-Code SimpleSchedule
 
 Application de planification moderne (evenements + taches) en PHP 8 et MySQL
+
 <img width="1910" height="934" alt="image" src="https://github.com/user-attachments/assets/29dcc75c-98ae-402c-aba4-47a22b963881" />
 
 ## Objectifs du projet
