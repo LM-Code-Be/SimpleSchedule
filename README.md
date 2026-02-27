@@ -1,6 +1,7 @@
 ﻿# LM-Code SimpleSchedule
 
-Application de planification moderne (evenements + taches) en PHP 8, structuree selon la **Clean Architecture**.
+Application de planification moderne (evenements + taches) en PHP 8 et MySQL
+<img width="1910" height="934" alt="image" src="https://github.com/user-attachments/assets/29dcc75c-98ae-402c-aba4-47a22b963881" />
 
 ## Objectifs du projet
 
@@ -168,16 +169,6 @@ Migrations concernees:
 - implementation PDO en Infrastructure
 - commentaires/docblocks concentres sur le "pourquoi" et la responsabilite
 
-## Commandes utiles
-
-```bash
-# verifier la syntaxe PHP
-Get-ChildItem -Recurse -Filter *.php | ForEach-Object { php -l $_.FullName }
-
 # migrer la base
 php bin/migrate.php
 ```
-
-## Notes
-
-- Le guide de developpement detaille est disponible dans `docs/tutorial.md`.
