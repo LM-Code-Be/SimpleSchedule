@@ -1,0 +1,20 @@
+﻿# Local docs
+structure.md
+
+# Environment
+.env
+.env.*
+
+# Dependencies
+vendor/
+node_modules/
+
+# Runtime
+*.log
+*.tmp
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
