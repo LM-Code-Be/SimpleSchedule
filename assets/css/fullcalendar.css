@@ -1,0 +1,15 @@
+﻿.fc {
+    --fc-border-color: #dce3ee;
+    --fc-neutral-bg-color: #f8fbff;
+}
+
+.fc .fc-daygrid-day-number {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.fc .fc-event {
+    border: none;
+    border-radius: 10px;
+    padding: 2px 6px;
+}
