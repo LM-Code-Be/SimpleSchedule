@@ -23,6 +23,8 @@ function initCharts() {
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
             }
@@ -46,6 +48,9 @@ function initCharts() {
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
                 scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
             }
         });
@@ -63,6 +68,8 @@ function initCharts() {
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { position: 'bottom' }
                 }
@@ -73,17 +80,25 @@ function initCharts() {
     const tagsEl = document.getElementById('tagsChart');
     if (tagsEl) {
         new Chart(tagsEl, {
-            type: 'polarArea',
+            type: 'bar',
             data: {
                 labels: cfg.tags.labels,
                 datasets: [{
                     data: cfg.tags.values,
-                    backgroundColor: cfg.tags.colors
+                    backgroundColor: cfg.tags.colors,
+                    borderRadius: 8
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
                 plugins: {
-                    legend: { position: 'right' }
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { beginAtZero: true, ticks: { precision: 0 } },
+                    y: { ticks: { autoSkip: false } }
                 }
             }
         });

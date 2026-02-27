@@ -10,6 +10,8 @@ $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''))
 if ($basePath === '/') {
     $basePath = '';
 }
+
+$isMoreActive = is_current_page('settings.php') || is_current_page('help.php');
 ?>
 <!doctype html>
 <html lang="fr">
@@ -38,15 +40,22 @@ if ($basePath === '/') {
         </button>
 
         <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link <?= is_current_page('index.php') ? 'active' : '' ?>" href="<?= $basePath ?>/index.php"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('calendar.php') ? 'active' : '' ?>" href="<?= $basePath ?>/calendar.php"><i class="bi bi-calendar3 me-1"></i>Calendrier</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('events.php') ? 'active' : '' ?>" href="<?= $basePath ?>/events.php"><i class="bi bi-calendar-event me-1"></i>Événements</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('tasks.php') ? 'active' : '' ?>" href="<?= $basePath ?>/tasks.php"><i class="bi bi-list-check me-1"></i>Tâches</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('tags.php') ? 'active' : '' ?>" href="<?= $basePath ?>/tags.php"><i class="bi bi-tags me-1"></i>Tags</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('stats.php') ? 'active' : '' ?>" href="<?= $basePath ?>/stats.php"><i class="bi bi-bar-chart-line me-1"></i>Statistiques</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('settings.php') ? 'active' : '' ?>" href="<?= $basePath ?>/settings.php"><i class="bi bi-gear me-1"></i>Paramètres</a></li>
-                <li class="nav-item"><a class="nav-link <?= is_current_page('help.php') ? 'active' : '' ?>" href="<?= $basePath ?>/help.php"><i class="bi bi-question-circle me-1"></i>Aide</a></li>
+            <ul class="navbar-nav nav-main me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link <?= is_current_page('index.php') ? 'active' : '' ?>" href="<?= $basePath ?>/index.php"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link <?= is_current_page('calendar.php') ? 'active' : '' ?>" href="<?= $basePath ?>/calendar.php"><i class="bi bi-calendar3"></i>Calendrier</a></li>
+                <li class="nav-item"><a class="nav-link <?= is_current_page('events.php') ? 'active' : '' ?>" href="<?= $basePath ?>/events.php"><i class="bi bi-calendar-event"></i>Événements</a></li>
+                <li class="nav-item"><a class="nav-link <?= is_current_page('tasks.php') ? 'active' : '' ?>" href="<?= $basePath ?>/tasks.php"><i class="bi bi-list-check"></i>Tâches</a></li>
+                <li class="nav-item"><a class="nav-link <?= is_current_page('tags.php') ? 'active' : '' ?>" href="<?= $basePath ?>/tags.php"><i class="bi bi-tags"></i>Tags</a></li>
+                <li class="nav-item"><a class="nav-link <?= is_current_page('stats.php') ? 'active' : '' ?>" href="<?= $basePath ?>/stats.php"><i class="bi bi-bar-chart-line"></i>Stats</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle <?= $isMoreActive ? 'active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>Plus
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="<?= $basePath ?>/settings.php"><i class="bi bi-gear me-2"></i>Paramètres</a></li>
+                        <li><a class="dropdown-item" href="<?= $basePath ?>/help.php"><i class="bi bi-question-circle me-2"></i>Aide</a></li>
+                    </ul>
+                </li>
             </ul>
             <div class="d-flex gap-2 flex-wrap nav-actions">
                 <a class="btn btn-outline-light btn-sm" href="<?= $basePath ?>/export.php?format=json"><i class="bi bi-download me-1"></i>Exporter</a>

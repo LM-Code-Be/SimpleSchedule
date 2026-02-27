@@ -33,9 +33,26 @@ foreach ($priority as $row) {
     $priorityMap[(string) $row['priority']] = (int) $row['total'];
 }
 
-$tagLabels = array_map(static fn (array $row): string => (string) $row['name'], $tags);
-$tagValues = array_map(static fn (array $row): int => (int) $row['usage_count'], $tags);
-$tagColors = array_map(static fn (array $row): string => (string) $row['color'], $tags);
+$tagMap = [];
+foreach ($tags as $row) {
+    $name = trim((string) $row['name']);
+    if ($name === '') {
+        continue;
+    }
+    $key = strtolower($name);
+    $tagMap[$key] ??= [
+        'name' => $name,
+        'usage_count' => 0,
+        'color' => (string) $row['color'],
+    ];
+    $tagMap[$key]['usage_count'] += (int) $row['usage_count'];
+}
+
+uasort($tagMap, static fn (array $a, array $b): int => $b['usage_count'] <=> $a['usage_count']);
+$tagTop = array_slice(array_values($tagMap), 0, 8);
+$tagLabels = array_map(static fn (array $row): string => (string) $row['name'], $tagTop);
+$tagValues = array_map(static fn (array $row): int => (int) $row['usage_count'], $tagTop);
+$tagColors = array_map(static fn (array $row): string => (string) $row['color'], $tagTop);
 
 $totalEvents = array_sum($weeklyValues);
 $totalMonthly = array_sum($monthlyValues);
@@ -91,14 +108,18 @@ require __DIR__ . '/includes/header.php';
             <div class="panel-header">
                 <h2 class="h5 mb-0">Charge sur 7 jours</h2>
             </div>
-            <canvas id="weeklyChart" height="105"></canvas>
+            <div class="chart-wrap">
+                <canvas id="weeklyChart"></canvas>
+            </div>
         </section>
 
         <section class="panel-card stats-chart">
             <div class="panel-header">
                 <h2 class="h5 mb-0">Tendance mensuelle</h2>
             </div>
-            <canvas id="monthlyChart" height="105"></canvas>
+            <div class="chart-wrap">
+                <canvas id="monthlyChart"></canvas>
+            </div>
         </section>
     </div>
 
@@ -107,14 +128,18 @@ require __DIR__ . '/includes/header.php';
             <div class="panel-header">
                 <h2 class="h5 mb-0">Répartition des priorités</h2>
             </div>
-            <canvas id="priorityChart" height="105"></canvas>
+            <div class="chart-wrap chart-wrap-sm">
+                <canvas id="priorityChart"></canvas>
+            </div>
         </section>
 
         <section class="panel-card stats-chart">
             <div class="panel-header">
                 <h2 class="h5 mb-0">Usage des tags</h2>
             </div>
-            <canvas id="tagsChart" height="105"></canvas>
+            <div class="chart-wrap chart-wrap-sm">
+                <canvas id="tagsChart"></canvas>
+            </div>
         </section>
     </div>
 </div>
