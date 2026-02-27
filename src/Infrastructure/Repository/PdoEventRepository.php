@@ -10,6 +10,10 @@ use App\Domain\Entity\Tag;
 use App\Domain\Repository\EventRepositoryInterface;
 use PDO;
 
+/**
+ * Implementation SQL du repository Event.
+ * Toute la logique de requetage est concentree ici.
+ */
 final class PdoEventRepository implements EventRepositoryInterface
 {
     public function __construct(private readonly PDO $pdo)
@@ -18,6 +22,7 @@ final class PdoEventRepository implements EventRepositoryInterface
 
     public function findAll(EventFilters $filters): array
     {
+        // Requete dynamique: seuls les filtres renseignes sont ajoutes.
         $sql = 'SELECT DISTINCT e.* FROM events e';
         $where = [];
         $params = [];
@@ -103,6 +108,7 @@ final class PdoEventRepository implements EventRepositoryInterface
 
     public function save(Event $event): Event
     {
+        // Transaction unique: event + table pivot event_tags.
         $this->pdo->beginTransaction();
         try {
             if ($event->id === null) {
@@ -203,6 +209,7 @@ final class PdoEventRepository implements EventRepositoryInterface
 
     public function refreshStatuses(): void
     {
+        // Le statut est derive des bornes temporelles de l'evenement.
         $this->pdo->exec(
             "UPDATE events SET status = CASE
                 WHEN CONCAT(event_date, ' ', COALESCE(end_time, '23:59:59')) < NOW() THEN 'past'
@@ -268,6 +275,7 @@ final class PdoEventRepository implements EventRepositoryInterface
      */
     private function loadTagsForEvents(array $eventIds): array
     {
+        // Evite N+1 queries en chargeant tous les tags d'un lot d'evenements.
         if ($eventIds === []) {
             return [];
         }
@@ -295,6 +303,7 @@ final class PdoEventRepository implements EventRepositoryInterface
     /** @param Tag[] $tags */
     private function hydrateEvent(array $row, array $tags): Event
     {
+        // Conversion ligne SQL -> entite domaine immutable.
         return new Event(
             id: (int) $row['id'],
             title: (string) $row['title'],

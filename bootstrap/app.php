@@ -13,6 +13,10 @@ use App\Infrastructure\Repository\PdoEventRepository;
 use App\Infrastructure\Repository\PdoTagRepository;
 use App\Shared\Container;
 
+/**
+ * Point d'entree de composition applicative.
+ * C'est ici que Michael peut brancher de nouveaux services/adaptateurs.
+ */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -26,10 +30,15 @@ date_default_timezone_set((string) ($config['app']['timezone'] ?? 'UTC'));
 
 $container = new Container();
 
+// Services techniques de base.
 $container->set('config', static fn (): array => $config);
 $container->set('pdo', static fn (): \PDO => ConnectionFactory::make($config['db']));
+
+// Adapters infrastructure (repositories).
 $container->set(EventRepositoryInterface::class, static fn (Container $c): EventRepositoryInterface => new PdoEventRepository($c->get('pdo')));
 $container->set(TagRepositoryInterface::class, static fn (Container $c): TagRepositoryInterface => new PdoTagRepository($c->get('pdo')));
+
+// Use-cases applicatifs.
 $container->set(TagService::class, static fn (Container $c): TagService => new TagService($c->get(TagRepositoryInterface::class)));
 $container->set(EventService::class, static fn (Container $c): EventService => new EventService(
     $c->get(EventRepositoryInterface::class),

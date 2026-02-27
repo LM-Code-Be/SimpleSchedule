@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+/**
+ * Entite metier principale.
+ * Un Event peut representer un evenement calendrier ou une tache.
+ */
 final class Event
 {
     public function __construct(

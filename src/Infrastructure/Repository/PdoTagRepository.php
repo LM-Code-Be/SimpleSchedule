@@ -8,6 +8,9 @@ use App\Domain\Entity\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 use PDO;
 
+/**
+ * Implementation SQL du repository Tag.
+ */
 final class PdoTagRepository implements TagRepositoryInterface
 {
     public function __construct(private readonly PDO $pdo)
@@ -39,6 +42,7 @@ final class PdoTagRepository implements TagRepositoryInterface
 
     public function save(Tag $tag): Tag
     {
+        // Upsert applicatif: insert si id null, update sinon.
         if ($tag->id === null) {
             $stmt = $this->pdo->prepare('INSERT INTO tags (name, color) VALUES (:name, :color)');
             $stmt->execute([
@@ -67,6 +71,7 @@ final class PdoTagRepository implements TagRepositoryInterface
 
     public function usageStats(): array
     {
+        // LEFT JOIN: les tags non utilises restent visibles avec count a 0.
         return $this->pdo->query(
             'SELECT t.id, t.name, t.color, COUNT(et.event_id) AS usage_count
              FROM tags t

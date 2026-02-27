@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 if (!function_exists('e')) {
+    /** Echappement HTML standard pour toutes les vues. */
     function e(?string $value): string
     {
         return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -10,6 +11,7 @@ if (!function_exists('e')) {
 }
 
 if (!function_exists('is_current_page')) {
+    /** Detection de route active pour le menu principal. */
     function is_current_page(string $filename): bool
     {
         return basename($_SERVER['PHP_SELF'] ?? '') === $filename;
@@ -17,6 +19,7 @@ if (!function_exists('is_current_page')) {
 }
 
 if (!function_exists('csrf_token')) {
+    /** Cree/reutilise un token CSRF en session. */
     function csrf_token(): string
     {
         if (!isset($_SESSION['_csrf'])) {
@@ -28,6 +31,7 @@ if (!function_exists('csrf_token')) {
 }
 
 if (!function_exists('csrf_verify')) {
+    /** Verification CSRF en comparaison constante. */
     function csrf_verify(?string $token): bool
     {
         return isset($_SESSION['_csrf']) && is_string($token) && hash_equals($_SESSION['_csrf'], $token);

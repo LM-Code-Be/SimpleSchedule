@@ -6,6 +6,9 @@ namespace App\Application\Service;
 
 use App\Domain\Repository\EventRepositoryInterface;
 
+/**
+ * Compose les indicateurs statistiques affiches par stats.php.
+ */
 final class StatsService
 {
     public function __construct(

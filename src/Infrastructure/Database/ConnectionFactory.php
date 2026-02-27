@@ -6,6 +6,10 @@ namespace App\Infrastructure\Database;
 
 use PDO;
 
+/**
+ * Fabrique unique de connexion PDO.
+ * Garantit un parametrage coherent pour toute l'application.
+ */
 final class ConnectionFactory
 {
     /** @param array<string, mixed> $config */

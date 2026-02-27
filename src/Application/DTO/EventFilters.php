@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\DTO;
 
+/**
+ * DTO de filtrage pour la lecture d'evenements.
+ * Utilise par les pages, API et services de dashboard/stats.
+ */
 final class EventFilters
 {
     public function __construct(
@@ -18,7 +22,11 @@ final class EventFilters
     ) {
     }
 
-    /** @param array<string, mixed> $input */
+    /**
+     * Construit des filtres normalises depuis un tableau GET/POST.
+     *
+     * @param array<string, mixed> $input
+     */
     public static function fromArray(array $input): self
     {
         $isTask = array_key_exists('is_task', $input) && $input['is_task'] !== ''

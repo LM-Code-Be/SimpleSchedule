@@ -41,6 +41,45 @@ bootstrap/app.php     # composition des dependances
 bin/migrate.php       # runner de migrations
 ```
 
+## Guide developpeur (Michael - LM-Code)
+
+Cette section sert de point d'entree rapide pour maintenir et faire evoluer le projet.
+
+### Classes a connaitre en priorite
+
+- `src/Application/Service/EventService.php`
+  - use-case central create/update/delete/toggle task
+  - valide le payload metier avant persistance
+- `src/Application/Service/TagService.php`
+  - use-case CRUD tags + stats d'usage
+- `src/Application/Service/DashboardService.php`
+  - compose les donnees de `index.php`
+- `src/Application/Service/StatsService.php`
+  - compose les donnees de `stats.php`
+- `src/Infrastructure/Repository/PdoEventRepository.php`
+  - requetes SQL evenement, transaction save, pivot `event_tags`
+- `src/Infrastructure/Repository/PdoTagRepository.php`
+  - requetes SQL tag + usage stats
+- `bootstrap/app.php`
+  - wiring DI (services/repositories)
+
+### Fonctions utilitaires importantes
+
+- `src/Shared/helpers.php::e()`
+  - echappement HTML standard pour toutes les vues
+- `src/Shared/helpers.php::csrf_token()`
+  - generation/lecture du token CSRF session
+- `src/Shared/helpers.php::csrf_verify()`
+  - verification CSRF avant mutation
+
+### Regle de maintenance
+
+- modifier la logique metier dans `src/Application/Service/*`
+- modifier SQL uniquement dans `src/Infrastructure/Repository/*`
+- ne pas injecter de SQL dans les pages `*.php`
+- ajouter une migration pour tout changement schema/seed
+- mettre a jour README + tutoreil si une convention change
+
 ## Installation sans Docker (WampServer ou local natif)
 
 ### 1. Prerequis
@@ -127,6 +166,7 @@ Migrations concernees:
 - validation metier dans les services
 - repository interfaces en Domain
 - implementation PDO en Infrastructure
+- commentaires/docblocks concentres sur le "pourquoi" et la responsabilite
 
 ## Commandes utiles
 

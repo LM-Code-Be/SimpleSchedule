@@ -6,6 +6,11 @@ namespace App\Shared;
 
 use RuntimeException;
 
+/**
+ * Mini container DI.
+ * - set(): enregistre une factory
+ * - get(): instancie en lazy puis met en cache
+ */
 final class Container
 {
     /** @var array<string, mixed> */
@@ -21,6 +26,7 @@ final class Container
 
     public function get(string $id): mixed
     {
+        // Service deja instancie: retour direct.
         if (array_key_exists($id, $this->entries)) {
             return $this->entries[$id];
         }

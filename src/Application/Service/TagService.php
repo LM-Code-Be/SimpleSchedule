@@ -8,6 +8,9 @@ use App\Domain\Entity\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 use InvalidArgumentException;
 
+/**
+ * Use-case de gestion des tags.
+ */
 final class TagService
 {
     public function __construct(private readonly TagRepositoryInterface $tags)
@@ -20,11 +23,13 @@ final class TagService
         return $this->tags->findAll();
     }
 
+    /** Retourne un tag pour l'ecran d'edition. */
     public function get(int $id): ?Tag
     {
         return $this->tags->findById($id);
     }
 
+    /** Valide et persiste un tag. */
     public function save(?int $id, string $name, string $color): Tag
     {
         $name = trim($name);
@@ -45,7 +50,11 @@ final class TagService
         $this->tags->delete($id);
     }
 
-    /** @return array<int, array<string, mixed>> */
+    /**
+     * Retourne les stats d'usage de tags pour la page stats.
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function usageStats(): array
     {
         return $this->tags->usageStats();

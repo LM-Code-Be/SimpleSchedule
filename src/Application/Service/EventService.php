@@ -12,6 +12,10 @@ use App\Domain\Repository\EventRepositoryInterface;
 use App\Domain\Repository\TagRepositoryInterface;
 use InvalidArgumentException;
 
+/**
+ * Use-case principal pour le cycle de vie des evenements et taches.
+ * Centralise validations metier et orchestration repository.
+ */
 final class EventService
 {
     public function __construct(
@@ -23,16 +27,22 @@ final class EventService
     /** @return Event[] */
     public function list(EventFilters $filters): array
     {
+        // Le statut temporel est recalculé avant toute lecture utilisateur.
         $this->events->refreshStatuses();
 
         return $this->events->findAll($filters);
     }
 
+    /** Lit un evenement complet (avec tags). */
     public function get(int $id): ?Event
     {
         return $this->events->findById($id);
     }
 
+    /**
+     * Valide les donnees d'entree et persiste l'evenement.
+     * Les tags inconnus sont ignores pour eviter une erreur SQL.
+     */
     public function save(EventPayload $payload): Event
     {
         $title = trim($payload->title);
@@ -88,12 +98,17 @@ final class EventService
         $this->events->delete($id);
     }
 
+    /** Marque une tache comme faite/non faite. */
     public function toggleTask(int $id, bool $isDone): void
     {
         $this->events->updateTaskState($id, $isDone);
     }
 
-    /** @return array<string, int> */
+    /**
+     * Fournit les KPI taches pour dashboard et page tasks.
+     *
+     * @return array<string, int>
+     */
     public function taskStats(): array
     {
         return $this->events->taskStats();

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+// Autoload PSR-4 minimal pour le namespace App\.
 spl_autoload_register(static function (string $class): void {
     $prefix = 'App\\';
     if (strncmp($class, $prefix, strlen($prefix)) !== 0) {

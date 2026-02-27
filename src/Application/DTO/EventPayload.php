@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\DTO;
 
+/**
+ * DTO d'ecriture pour creation/mise a jour d'un evenement.
+ * Ce DTO est volontairement proche des champs de formulaire/API.
+ */
 final class EventPayload
 {
     /** @param int[] $tagIds */
@@ -22,7 +26,11 @@ final class EventPayload
     ) {
     }
 
-    /** @param array<string, mixed> $input */
+    /**
+     * Construit un payload normalise depuis un formulaire ou JSON API.
+     *
+     * @param array<string, mixed> $input
+     */
     public static function fromArray(array $input): self
     {
         $tagIds = array_map('intval', $input['tag_ids'] ?? $input['tags'] ?? []);

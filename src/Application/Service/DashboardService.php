@@ -6,6 +6,10 @@ namespace App\Application\Service;
 
 use App\Application\DTO\EventFilters;
 
+/**
+ * Compose toutes les donnees de la home dashboard.
+ * Evite de mettre de la logique metier dans index.php.
+ */
 final class DashboardService
 {
     public function __construct(

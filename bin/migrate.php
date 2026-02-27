@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Infrastructure\Database\ConnectionFactory;
 
+// Runner de migrations SQL ordonnees.
+// Usage: php bin/migrate.php
 require_once __DIR__ . '/../src/Shared/Autoloader.php';
 
 $config = require __DIR__ . '/../config/database.php';
@@ -19,6 +21,7 @@ $bootstrapPdo = new PDO($bootstrapDsn, (string) $db['user'], (string) $db['pass'
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 ]);
 $databaseName = preg_replace('/[^a-zA-Z0-9_]/', '', (string) $db['name']);
+// Creation defensive de la base pour simplifier l'onboarding local.
 $bootstrapPdo->exec("CREATE DATABASE IF NOT EXISTS `{$databaseName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
 $pdo = ConnectionFactory::make($config['db']);
@@ -53,6 +56,7 @@ foreach ($files as $file) {
     }
 
     try {
+        // Chaque fichier SQL est applique comme une unite versionnee.
         $pdo->exec($sql);
         $stmt = $pdo->prepare('INSERT INTO schema_migrations (version) VALUES (:version)');
         $stmt->execute(['version' => $version]);
