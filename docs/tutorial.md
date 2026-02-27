@@ -1,4 +1,4 @@
-﻿# Tutoreil - Developper LM-Code SimpleSchedule de zero
+# Tutoreil - Developper LM-Code SimpleSchedule de zero
 
 Ce document explique comment reconstruire le projet pas a pas, puis l executer en local sans Docker et avec Docker.
 

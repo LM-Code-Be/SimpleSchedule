@@ -180,5 +180,4 @@ php bin/migrate.php
 
 ## Notes
 
-- `structure.md` est volontairement ignore par git (documentation locale interne).
-- `tutoreil.md` detaille le developpement du projet de zero.
+- Le guide de developpement detaille est disponible dans `docs/tutorial.md`.
